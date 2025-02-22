@@ -1,24 +1,22 @@
-# react-native-image
+# rn-image
 
 ReactR
 
 ## Installation
 
 ```sh
-npm install react-native-image
+npm install rn-image
 ```
 
 ## Usage
 
-
 ```js
-import { multiply } from 'react-native-image';
+import { multiply } from 'rn-image';
 
 // ...
 
 const result = await multiply(3, 7);
 ```
-
 
 ## Contributing
 

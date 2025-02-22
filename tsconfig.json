@@ -2,17 +2,16 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-image": ["./src/index"]
+      "rn-image": ["./lib/src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx",
+    "jsx": "react-native",
     "lib": ["ESNext"],
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "noEmit": true,
+    "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
@@ -21,10 +20,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
-    "resolvePackageJsonImports": false,
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "verbatimModuleSyntax": true
-  }
+    "declaration": true
+  },
+  "include": ["src"]
 }
