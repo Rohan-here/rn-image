@@ -1,3 +1,7 @@
-export function multiply(a: number, b: number): number {
-  return a * b;
-}
+import { View } from 'react-native';
+
+const RNImage = () => {
+  return <View>Hi</View>;
+};
+
+export default RNImage;

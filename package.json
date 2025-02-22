@@ -1,7 +1,7 @@
 {
   "name": "react-native-image",
   "version": "0.1.0",
-  "description": "ReactR",
+  "description": "React native image module with expo, lazy loading and caching support",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
