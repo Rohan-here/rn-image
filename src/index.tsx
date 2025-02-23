@@ -1,30 +1,26 @@
 import React from 'react';
-import { Image, ImageResizeMode, ImageStyle, StyleProp } from 'react-native';
-
-interface RNInterfaceProps {
-  source: string;
-  style?: StyleProp<ImageStyle>;
-  placeHolderContent: React.ReactNode;
-  loading?: boolean;
-  resizeMode?: ImageResizeMode;
-}
+import { Image } from 'react-native';
+import { RNInterfaceProps } from './types/image';
 
 const RNImage: React.FC<RNInterfaceProps> = ({
+  cacheKey,
   source,
   placeHolderContent,
+  fallbackContent,
   style,
   resizeMode = 'contain',
   loading = false,
+  fallback = false,
   ...props
 }) => {
   if (loading) return placeHolderContent;
+  if (fallback) return fallbackContent;
 
   return (
     <Image
+      key={cacheKey}
       {...props}
-      source={{
-        uri: source,
-      }}
+      source={{ uri: source }}
       resizeMode={resizeMode}
       style={style}
     />
