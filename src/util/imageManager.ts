@@ -3,21 +3,31 @@ import RNFS from 'react-native-fs';
 export const RNImageManager = {
   /**
    * Retrieves a local URI for the image identified by cacheKey.
-   * If the image is not already cached, it downloads it.
+   * Ensures the cache directory exists, checks if the image is cached,
+   * and downloads it if necessary.
    * @param cacheKey Unique key for caching.
    * @param source Remote image URL.
    * @returns A promise that resolves to a local file URI or null on failure.
    */
   async getLocalUri(cacheKey: string, source: string): Promise<string | null> {
-    const filePath = `${RNFS.CachesDirectoryPath}/rn-image-manager/${cacheKey}.png`; // adjust extension as needed
+    // Define the cache directory and file path
+    const cacheDir = `${RNFS.CachesDirectoryPath}/rn-image-manager`;
+    const filePath = `${cacheDir}/${cacheKey}.png`; // Adjust extension as needed
+
     try {
+      // Ensure the cache directory exists
+      await RNFS.mkdir(cacheDir);
+
+      // Check if the image is already cached
       const exists = await RNFS.exists(filePath);
       if (exists) {
         return `file://${filePath}`;
       }
+
+      // Download the image if not cached
       return await RNImageManager.downloadImage(source, filePath);
     } catch (error) {
-      console.error('Error in getLocalUri:', error);
+      console.error('Error in RNImageManager.getLocalUri:', error);
       return null;
     }
   },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, ActivityIndicator } from 'react-native';
+import { Image } from 'react-native';
 
 import { RNInterfaceProps } from './types/image';
 import { RNImageManager } from './util/imageManager';
@@ -15,22 +15,33 @@ const RNImage: React.FC<RNInterfaceProps> = ({
 }) => {
   const [localUri, setLocalUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [errorOccurred, setErrorOccurred] = useState(false);
 
   useEffect(() => {
     const fetchImage = async () => {
-      const uri = await RNImageManager.getLocalUri(cacheKey, source);
-      setLocalUri(uri);
-      setLoading(false);
+      try {
+        setLoading(true);
+        setErrorOccurred(false);
+        const uri = await RNImageManager.getLocalUri(cacheKey, source);
+        setLocalUri(uri);
+      } catch (error) {
+        setErrorOccurred(true);
+        if (__DEV__) {
+          console.error('Error fetching image:', error);
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchImage();
   }, [cacheKey, source]);
 
   if (loading) {
-    return placeHolderContent || <ActivityIndicator />;
+    return placeHolderContent || null;
   }
 
-  if (!localUri) {
+  if (errorOccurred || !localUri) {
     return fallbackContent || null;
   }
 
