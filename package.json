@@ -125,5 +125,8 @@
       "module",
       "typescript"
     ]
+  },
+  "dependencies": {
+    "react-native-fs": "^2.20.0"
   }
 }
