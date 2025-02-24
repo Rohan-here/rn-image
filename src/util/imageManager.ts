@@ -10,9 +10,10 @@ export const RNImageManager = {
    * @returns A promise that resolves to a local file URI or null on failure.
    */
   async getLocalUri(cacheKey: string, source: string): Promise<string | null> {
-    // Define the cache directory and file path
+    // Extract file extension from source URL
+    const extension = RNImageManager.getFileExtension(source);
     const cacheDir = `${RNFS.CachesDirectoryPath}/rn-image-manager`;
-    const filePath = `${cacheDir}/${cacheKey}.png`; // Adjust extension as needed
+    const filePath = `${cacheDir}/${cacheKey}.${extension}`;
 
     try {
       // Ensure the cache directory exists
@@ -30,6 +31,17 @@ export const RNImageManager = {
       console.error('Error in RNImageManager.getLocalUri:', error);
       return null;
     }
+  },
+
+  /**
+   * Extracts the file extension from the URL.
+   * Defaults to 'jpg' if no valid extension is found.
+   * @param url Remote image URL.
+   * @returns Extracted file extension.
+   */
+  getFileExtension(url: string): string {
+    const match = url.match(/\.(\w+)(?:\?.*)?$/);
+    return match?.[1] ?? 'jpg';
   },
 
   /**
